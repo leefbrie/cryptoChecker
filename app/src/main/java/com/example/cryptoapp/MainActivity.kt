@@ -26,28 +26,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val apiKey = "e4905cdd-b108-46fa-9879-1cd3b85b5998"
-
-
-        val call: Call<List<CryptoInfo>> = api.getCryptoList(apiKey)
-        call.enqueue(object : Callback<CryptoInfo> {
-            override fun onResponse(
-                call: Call<CryptoInfo>,
-                response: Response<CryptoInfo>
-            ) {
-                if (response.isSuccessful) {
-                    val cryptoList = response.body()?.data
-                    // Process the cryptoList here
-                } else {
-                    // Handle the error
-                }
-            }
-
-            override fun onFailure(call: Call<CryptoListResponse>, t: Throwable) {
-                // Handle the failure here
-            }
-        })
-
         setContent {
             CryptoCard()
         }
