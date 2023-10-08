@@ -1,6 +1,6 @@
 package model
-
 data class CryptoInfo(
-    val name: String,
-    val price: Double
+    val description: String,
+    val title: String,
+    val stock: String
 )

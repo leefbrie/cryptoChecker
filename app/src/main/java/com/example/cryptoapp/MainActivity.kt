@@ -3,70 +3,87 @@ package com.example.cryptoapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-
-import model.CryptoInfo
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val apiKey = "e4905cdd-b108-46fa-9879-1cd3b85b5998"
-
-
-        val call: Call<List<CryptoInfo>> = api.getCryptoList(apiKey)
-        call.enqueue(object : Callback<CryptoInfo> {
-            override fun onResponse(
-                call: Call<CryptoInfo>,
-                response: Response<CryptoInfo>
-            ) {
-                if (response.isSuccessful) {
-                    val cryptoList = response.body()?.data
-                    // Process the cryptoList here
-                } else {
-                    // Handle the error
-                }
-            }
-
-            override fun onFailure(call: Call<CryptoListResponse>, t: Throwable) {
-                // Handle the failure here
-            }
-        })
-
         setContent {
-            CryptoCard()
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                
+                MainContainer()
+            }
         }
     }
 }
 
+
 @Composable
-fun CryptoCard() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .background(color = Color.Blue)
+fun MainContainer() {
+
+    Column(
+        modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Hello, I am a Bitcoin",
-            color = Color.White,
+        CryptoCard("Bitcoin", "Btc", R.drawable.bitcoin)
+    }
+}
+
+@Composable
+fun CryptoCard(
+    item: String, symbol: String, icon: Int
+) {
+    Card(
+        shape = RoundedCornerShape(8.dp), modifier = Modifier.fillMaxWidth(0.8f)
+    ) {
+        Row(
             modifier = Modifier
-                .padding(16.dp)
-        )
+                .fillMaxWidth()
+                .background(color = Color.White),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Image(
+                painter = painterResource(id = icon),
+                contentDescription = "crypto icon",
+                modifier = Modifier.size(48.dp)
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+            Column {
+                Text(
+                    text = item,
+                    color = colorResource(id = R.color.black),
+                )
+
+                Text(
+                    text = symbol,
+                    color = colorResource(id = R.color.black),
+                )
+            }
+        }
     }
 }

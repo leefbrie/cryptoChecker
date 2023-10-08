@@ -1,10 +1,29 @@
-import network.CoinMarketCapApi
+package testApi
+
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import model.CryptoInfo
+import retrofit2.http.GET
 
-val retrofit = Retrofit.Builder()
-    .baseUrl("https://pro-api.coinmarketcap.com/")
-    .addConverterFactory(GsonConverterFactory.create())
-    .build()
 
-public val api = retrofit.create(CoinMarketCapApi::class.java)
+
+interface Apicoins {
+    @GET("pproducts")
+    suspend fun getCrypto(): List<CryptoInfo>
+}
+
+class Apirepository(){
+    fun startup() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://dummyjson.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val coinMarketApi = retrofit.create(Apicoins::class.java)
+    }
+
+
+}
+
+
+
+
