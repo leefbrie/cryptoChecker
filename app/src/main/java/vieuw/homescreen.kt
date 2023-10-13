@@ -1,8 +1,5 @@
-package com.example.cryptoapp
+package vieuw
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,37 +18,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            navigation()
-        }
-    }
-}
-
-@Composable
-fun MainScreen(
-    navController: NavController
-) {
-
-    Column(
-        modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CryptoCard("Bitcoin", "Btc", R.drawable.bitcoin, navController)
-    }
-}
+import com.example.cryptoapp.R
 
 @Composable
 fun CryptoCard(
-    item: String,
-    symbol: String,
-    icon: Int,
-    navController: NavController
-
+    item: String, symbol: String, icon: Int
 ) {
     Card(
         shape = RoundedCornerShape(8.dp), modifier = Modifier.fillMaxWidth(0.8f)
@@ -83,14 +53,5 @@ fun CryptoCard(
                 )
             }
         }
-
-        Button(onClick =  {
-            navController.navigate(Screen.AlertScreen.route)
-        }) {
-            Text(text = "Move to Next Screen")
-        }
     }
 }
-
-
-
