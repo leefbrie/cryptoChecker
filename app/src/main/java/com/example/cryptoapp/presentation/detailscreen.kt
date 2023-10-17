@@ -1,4 +1,4 @@
-package vieuw
+package com.example.cryptoapp.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
