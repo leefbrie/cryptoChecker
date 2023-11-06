@@ -10,7 +10,6 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.cryptoapp.data.model.ApiResponse
 import com.example.cryptoapp.data.remote.ApiRepository
 
-import com.example.cryptoapp.presentation.state.CryptoState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,17 +18,18 @@ import kotlinx.coroutines.launch
 
 
 class HomeViewModel(private val apiRepository: ApiRepository) : ViewModel() {
-
-    private val _uiState = MutableStateFlow<CryptoState>(CryptoState())
-    val uiState: StateFlow<CryptoState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<ApiResponse?>(null)
+    val uiState: StateFlow<ApiResponse?> = _uiState.asStateFlow()
 
     fun loadCrypto() = viewModelScope.launch(Dispatchers.IO) {
         val latestCryptoList = getCryptoList()
+        _uiState.value = latestCryptoList
     }
 
-    private suspend fun getCryptoList(): List<ApiResponse> {
+    private suspend fun getCryptoList(): ApiResponse {
         return apiRepository.fetchCryptoData()
     }
+
 
     companion object {
 
@@ -44,7 +44,6 @@ class HomeViewModel(private val apiRepository: ApiRepository) : ViewModel() {
 
                 return HomeViewModel(
                     (application as MyApplication).homeRepository
-
                 ) as T
             }
         }

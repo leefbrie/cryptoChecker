@@ -8,11 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
-import com.example.cryptoapp.Screen
 
 @Composable
 fun DetailScreen(
-    navController: NavController
+    navController: NavController,
+    string: Any?
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
