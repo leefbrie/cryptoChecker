@@ -2,7 +2,7 @@ package com.example.cryptoapp
 
 import android.app.Application
 import com.example.cryptoapp.data.remote.ApiRepository
-import testApi.ApiBuilder
+import com.example.cryptoapp.data.remote.ApiBuilder
 
 
 class MyApplication: Application() {

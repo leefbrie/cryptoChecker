@@ -15,8 +15,8 @@ data class Product(
 )
 
 data class ApiResponse(
-    val products: List<Product>?,
-    val total: Int?,
-    val skip: Int?,
-    val limit: Int?
+    val products: List<Product> = emptyList(),
+    val total: Int = 0,
+    val skip: Int? = 0,
+    val limit: Int = 0,
 )

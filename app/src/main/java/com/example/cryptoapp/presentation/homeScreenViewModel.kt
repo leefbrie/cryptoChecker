@@ -9,30 +9,26 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.cryptoapp.data.model.ApiResponse
 import com.example.cryptoapp.data.remote.ApiRepository
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 
 class HomeViewModel(private val apiRepository: ApiRepository) : ViewModel() {
-    private val _uiState = MutableStateFlow<ApiResponse?>(null)
-    val uiState: StateFlow<ApiResponse?> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(ApiResponse())
+    val uiState = _uiState.asStateFlow()
 
     fun loadCrypto() = viewModelScope.launch(Dispatchers.IO) {
         val latestCryptoList = getCryptoList()
         _uiState.value = latestCryptoList
     }
 
-    private suspend fun getCryptoList(): ApiResponse {
+    private suspend fun getCryptoList(): List<ApiResponse> {
         return apiRepository.fetchCryptoData()
     }
 
-
     companion object {
-
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(
